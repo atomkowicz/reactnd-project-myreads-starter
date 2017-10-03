@@ -7,11 +7,12 @@ class BookShelf extends Component {
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">Currently Reading</h2>
+        <h2 className="bookshelf-title">{this.props.shelf}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {
-              this.props.books.map(book => <Book key={book.id} details={book} />)
+              this.props.books.map(book =>
+                <Book key={book.id} details={book} />)
             }
           </ol>
         </div>

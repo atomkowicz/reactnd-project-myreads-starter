@@ -24,17 +24,16 @@ class BooksApp extends React.Component {
       this.setState({
         books
       })
-
-      let shelfs = [...new Set(books.map(book => book.shelf))]
-      console.log(shelfs);
     });
   }
 
 
   render() {
+
+    
     return (
       <div className="app">
-        <BookList books={this.state.books} />
+        <BookList allBooks={this.state.books} />
       </div>
     )
   }
