@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import BookShelf from './BookShelf'
 
 
 const BookList = (props) => {
-  let { allBooks } = props;
+  const { allBooks, onChangeShelf } = props;
   let shelfs = [];
 
   if (allBooks.length)
@@ -18,9 +18,10 @@ const BookList = (props) => {
         <div>
 
           {shelfs.map((shelf) => (
-            <BookShelf
+            <BookShelf key={shelf}
               shelf={shelf}
-              books={allBooks.filter(book => book.shelf === shelf)} />
+              books={allBooks.filter(book => book.shelf === shelf)} 
+              onChangeShelf={onChangeShelf}/>
           ))}
 
         </div>

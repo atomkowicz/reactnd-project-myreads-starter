@@ -1,5 +1,5 @@
 import React from 'react'
-import { getAll } from './BooksAPI';
+import { getAll, update } from './BooksAPI';
 import './App.css'
 import BookList from './BookList'
 
@@ -27,13 +27,18 @@ class BooksApp extends React.Component {
     });
   }
 
+  onChangeShelf(book, shelf) {
+    update(book, shelf).then(books => {
+      this.setState({
+        books
+      })
+    })
+  }
 
   render() {
-
-    
     return (
       <div className="app">
-        <BookList allBooks={this.state.books} />
+        <BookList allBooks={this.state.books} onChangeShelf={(book, shelf) => this.onChangeShelf()} />
       </div>
     )
   }
