@@ -5,7 +5,9 @@ import BookShelf from './BookShelf';
 
 const BookList = (props) => {
   const { books, onChangeShelf } = props;
-  const shelves = ["currentlyReading", "wantToRead", "read"];
+  let shelves = [];
+  if (books.length)
+    shelves = [...new Set(books.map(book => book.shelf))]
 
   return (
     <div className="list-books">
@@ -19,8 +21,8 @@ const BookList = (props) => {
             <BookShelf key={shelf}
               shelf={shelf}
               shelves={shelves}
-              books={books.filter(book => book.shelf === shelf)} 
-              onChangeShelf={onChangeShelf}/>
+              books={books.filter(book => book.shelf === shelf)}
+              onChangeShelf={onChangeShelf} />
           ))}
 
         </div>
@@ -30,10 +32,10 @@ const BookList = (props) => {
 }
 
 BookList.PropTypes = {
-  books:PropTypes.array.isRequired,
-  shelf:PropTypes.string.isRequired,
-  shelves:PropTypes.array.isRequired,
-  onChangeShelf:PropTypes.func.isRequired
+  books: PropTypes.array.isRequired,
+  shelf: PropTypes.string.isRequired,
+  shelves: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func.isRequired
 }
 
 export default BookList;
