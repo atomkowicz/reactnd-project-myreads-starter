@@ -1,13 +1,11 @@
-import React from 'react'
-import BookShelf from './BookShelf'
+import React from 'react';
+import PropTypes from 'prop-types';
+import BookShelf from './BookShelf';
 
 
 const BookList = (props) => {
-  const { allBooks, onChangeShelf } = props;
-  let shelfs = [];
-
-  if (allBooks.length)
-    shelfs = [...new Set(allBooks.map(book => book.shelf))]
+  const { books, onChangeShelf } = props;
+  const shelves = ["currentlyReading", "wantToRead", "read"];
 
   return (
     <div className="list-books">
@@ -17,10 +15,11 @@ const BookList = (props) => {
       <div className="list-books-content">
         <div>
 
-          {shelfs.map((shelf) => (
+          {shelves.map((shelf) => (
             <BookShelf key={shelf}
               shelf={shelf}
-              books={allBooks.filter(book => book.shelf === shelf)} 
+              shelves={shelves}
+              books={books.filter(book => book.shelf === shelf)} 
               onChangeShelf={onChangeShelf}/>
           ))}
 
@@ -28,6 +27,13 @@ const BookList = (props) => {
       </div>
     </div>
   )
+}
+
+BookList.PropTypes = {
+  books:PropTypes.array.isRequired,
+  shelf:PropTypes.string.isRequired,
+  shelves:PropTypes.array.isRequired,
+  onChangeShelf:PropTypes.func.isRequired
 }
 
 export default BookList;

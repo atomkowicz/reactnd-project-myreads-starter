@@ -1,54 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Book extends Component {
-    state = {
-        shelf: "",
-    }
+const Book = (props) => {
 
+    const {
+        book,
+        shelves,
+        onChangeShelf
+      } = props;
 
+    const { smallThumbnail } = book.imageLinks;
 
-    handleChangeShelf = (e) => {
-        console.log();
-        e.preventDefault();
-        if (this.props.onChangeShelf) {
-            this.props.onChangeShelf(this.props.details, this.props.shelf);
-        }
-    }
-
-
-
-    render() {
-        const { bookDetails, onChangeShelf } = this.props;
-        var imgURL = `url('${bookDetails.imageLinks.smallThumbnail}')`;
-        console.log(imgURL);
-
-        const divStyle = {
-            width: 128,
-            height: 188,
-            backgroundImage: imgURL
-        }
-
-        return (
-            <li>
-                <div className="book">
-                    <div className="book-top">
-                        <div className="book-cover" style={divStyle}></div>
-                        <div className="book-shelf-changer">
-                            <select value={this.state.shelf} onChange={this.handleChangeShelf}>
-                                <option value="none" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                            </select>
-                        </div>
+    return (
+        <li>
+            <div className="book">
+                <div className="book-top">
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${smallThumbnail}` }} ></div>
+                    <div className="book-shelf-changer">
+                        <select value={book.shelf} onChange={(e) => onChangeShelf(book, e.target.value)}>
+                            <option value="none" disabled>Move to...</option>
+                            {shelves.map(shelf =>
+                                <option key={shelf} value={shelf}>{shelf}</option>
+                            )}
+                            <option value="none">None</option>
+                        </select>
                     </div>
-                    <div className="book-title">{bookDetails.title}</div>
-                    <div className="book-authors">{bookDetails.authors.join(", ")}</div>
                 </div>
-            </li>
-        )
-    }
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors.join(", ")}</div>
+            </div>
+        </li>
+    )
+}
+
+Book.PropTypes = {
+    book: PropTypes.object.isRequired,
+    shelves: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Book;

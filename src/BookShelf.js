@@ -1,9 +1,10 @@
 import React from 'react';
-import Book from './Book'
+import PropTypes from 'prop-types';
+import Book from './Book';
 
 const BookShelf = (props) => {
 
-  let { shelf, books, onChangeShelf } = props;
+  let { shelf, shelves, books, onChangeShelf } = props;
 
   return (
     <div className="bookshelf">
@@ -12,14 +13,23 @@ const BookShelf = (props) => {
         <ol className="books-grid">
           {books.length > 0 &&
             books.map(book =>
-              <Book key={book.id}
-                bookDetails={book}
+              <Book
+                key={book.id}
+                book={book}
+                shelves={shelves}
                 onChangeShelf={onChangeShelf} />)
           }
         </ol>
       </div>
     </div>
   )
+}
+
+BookShelf.PropTypes = {
+  shelf: PropTypes.string.isRequired,
+  shelves: PropTypes.array.isRequired,
+  books: PropTypes.array.isRequired,
+  onChangeShelf: PropTypes.func.isRequired
 }
 
 export default BookShelf;
