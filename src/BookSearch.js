@@ -10,18 +10,20 @@ class BookSearch extends Component {
         error: ""
     }
 
+    onTextChange = (e) => {
+        const query = e.target.value;
 
-    handleChange = (e) => {
-        if (e.key === "Enter") {
-            const maxResults = 10;
-            const query = e.target.value;
-
-            search(query, maxResults).then(books => {
+        if (query) {
+            search(query, 10).then(books => {
                 this.setState({
                     books: books.error ? [] : books,
                     error: books.error ? "No results" : ""
                 })
             });
+        } else {
+            this.setState({
+                books:[]
+            })
         }
     }
 
@@ -35,7 +37,10 @@ class BookSearch extends Component {
                 <div className="search-books-bar">
                     <Link to="/" className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" placeholder="Search books" onKeyPress={(e) => (this.handleChange(e))} />
+                        <input
+                            type="text"
+                            placeholder="Search books"
+                            onChange={(e) => this.onTextChange(e)}/>
                     </div>
                 </div>
                 <div className="search-books-results">
@@ -47,12 +52,10 @@ class BookSearch extends Component {
                                     book={book}
                                     shelves={shelves}
                                     onChangeShelf={onChangeShelf}
-                                    uncategorized={true}
+                                    selected={book.shelf ? book.shelf : "none"}
                                 />))
                         }
-
                         {error && <div>No results</div>}
-
                     </ol>
                 </div>
             </div>

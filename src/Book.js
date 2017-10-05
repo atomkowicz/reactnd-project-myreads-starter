@@ -7,11 +7,11 @@ const Book = (props) => {
         book,
         shelves,
         onChangeShelf,
-        uncategorized
+        selected
       } = props;
 
     const { smallThumbnail } = book.imageLinks;
-    const selected = uncategorized ? "none" : book.shelf;
+    const selectedOption = selected === "none"? "none":book.shelf;
 
     return (
         <li>
@@ -19,7 +19,7 @@ const Book = (props) => {
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${smallThumbnail}` }} ></div>
                     <div className="book-shelf-changer">
-                        <select value={selected} onChange={(e) => onChangeShelf(book, e.target.value)}>
+                        <select value={selectedOption} onChange={(e) => onChangeShelf(book, e.target.value)}>
                             <option value="move" disabled>Move to...</option>
                             {shelves.map(shelf => (
                                 <option key={shelf} value={shelf}>{shelf}</option>
@@ -29,7 +29,7 @@ const Book = (props) => {
                     </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors.join(", ")}</div>
+                <div className="book-authors">{book.authors? book.authors.join(", "):""}</div>
             </div>
         </li>
     )
@@ -39,7 +39,7 @@ Book.PropTypes = {
     book: PropTypes.object.isRequired,
     shelves: PropTypes.array.isRequired,
     onChangeShelf: PropTypes.func.isRequired,
-    uncategorized: PropTypes.bool
+    selected: PropTypes.string.isRequired
 }
 
 export default Book;
