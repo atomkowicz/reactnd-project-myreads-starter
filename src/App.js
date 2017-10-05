@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
 
   render() {
     const shelves = ["currentlyReading", "wantToRead", "read"];
-    
+
     return (
       <div className="app">
         <Route exact path="/" render={() => (
@@ -47,9 +47,11 @@ class BooksApp extends React.Component {
         )} />
 
         <Route path="/search" render={({ history }) => (
-          <BookSearch shelves={shelves} onChangeShelf={(book, shelf) => {
-                this.onChangeShelf(book, shelf);
-              }}/>
+          <BookSearch
+            shelves={shelves}
+            onChangeShelf={(book, shelf) => {
+              this.onChangeShelf(book, shelf);
+            }} />
         )} />
 
       </div>

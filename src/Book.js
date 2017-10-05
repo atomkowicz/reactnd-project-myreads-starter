@@ -6,10 +6,12 @@ const Book = (props) => {
     const {
         book,
         shelves,
-        onChangeShelf
+        onChangeShelf,
+        uncategorized
       } = props;
 
     const { smallThumbnail } = book.imageLinks;
+    const selected = uncategorized ? "none" : book.shelf;
 
     return (
         <li>
@@ -17,11 +19,11 @@ const Book = (props) => {
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${smallThumbnail}` }} ></div>
                     <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(e) => onChangeShelf(book, e.target.value)}>
-                            <option value="none" disabled>Move to...</option>
-                            {shelves.map(shelf =>
+                        <select value={selected} onChange={(e) => onChangeShelf(book, e.target.value)}>
+                            <option value="move" disabled>Move to...</option>
+                            {shelves.map(shelf => (
                                 <option key={shelf} value={shelf}>{shelf}</option>
-                            )}
+                            ))}
                             <option value="none">None</option>
                         </select>
                     </div>
@@ -36,7 +38,8 @@ const Book = (props) => {
 Book.PropTypes = {
     book: PropTypes.object.isRequired,
     shelves: PropTypes.array.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
+    onChangeShelf: PropTypes.func.isRequired,
+    uncategorized: PropTypes.bool
 }
 
 export default Book;
