@@ -16,14 +16,13 @@ const Book = (props) => {
     if (book.shelf) {
         selectedOption = book.shelf;
     }
-    
+
     if (userBooks) {
         const userBook = userBooks.find((b) => (b.id === book.id))
         if (userBook) {
             selectedOption = userBook.shelf;
         }
     }
-
 
     return (
         <li>
