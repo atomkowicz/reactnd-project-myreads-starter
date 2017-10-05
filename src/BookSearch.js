@@ -22,13 +22,13 @@ class BookSearch extends Component {
             });
         } else {
             this.setState({
-                books:[]
+                books: []
             })
         }
     }
-
+    
     render() {
-        const { shelves, onChangeShelf } = this.props;
+        const { shelves, onChangeShelf, userBooks } = this.props;
         const { books, error } = this.state;
 
 
@@ -40,7 +40,7 @@ class BookSearch extends Component {
                         <input
                             type="text"
                             placeholder="Search books"
-                            onChange={(e) => this.onTextChange(e)}/>
+                            onChange={(e) => this.onTextChange(e)} />
                     </div>
                 </div>
                 <div className="search-books-results">
@@ -52,7 +52,7 @@ class BookSearch extends Component {
                                     book={book}
                                     shelves={shelves}
                                     onChangeShelf={onChangeShelf}
-                                    selected={book.shelf ? book.shelf : "none"}
+                                    userBooks={userBooks}
                                 />))
                         }
                         {error && <div>No results</div>}

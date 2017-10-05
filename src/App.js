@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
     this.getBooks();
   }
 
-  getBooks() {
+  getBooks = () => {
     getAll().then(books => {
       this.setState({
         books
@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
     });
   }
 
-  onChangeShelf(book, shelf) {
+  onChangeShelf = (book, shelf) => {
     update(book, shelf).then(
       this.getBooks()
     );
@@ -30,13 +30,14 @@ class BooksApp extends React.Component {
 
   render() {
     const shelves = ["currentlyReading", "wantToRead", "read"];
+    let { books } = this.state;
 
     return (
       <div className="app">
         <Route exact path="/" render={() => (
           <div>
             <BookList
-              books={this.state.books}
+              books={books}
               onChangeShelf={(book, shelf) => {
                 this.onChangeShelf(book, shelf);
               }} />
@@ -49,9 +50,11 @@ class BooksApp extends React.Component {
         <Route path="/search" render={({ history }) => (
           <BookSearch
             shelves={shelves}
+            userBooks={books}
             onChangeShelf={(book, shelf) => {
               this.onChangeShelf(book, shelf);
-            }} />
+            }}
+          />
         )} />
 
       </div>

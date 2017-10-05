@@ -7,11 +7,23 @@ const Book = (props) => {
         book,
         shelves,
         onChangeShelf,
-        selected
+        userBooks
       } = props;
 
     const { smallThumbnail } = book.imageLinks;
-    const selectedOption = selected === "none"? "none":book.shelf;
+    var selectedOption = "none";
+
+    if (book.shelf) {
+        selectedOption = book.shelf;
+    }
+    
+    if (userBooks) {
+        const userBook = userBooks.find((b) => (b.id === book.id))
+        if (userBook) {
+            selectedOption = userBook.shelf;
+        }
+    }
+
 
     return (
         <li>
@@ -29,7 +41,7 @@ const Book = (props) => {
                     </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors? book.authors.join(", "):""}</div>
+                <div className="book-authors">{book.authors ? book.authors.join(", ") : ""}</div>
             </div>
         </li>
     )
