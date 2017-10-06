@@ -52,7 +52,7 @@ Book.propTypes = {
     book: PropTypes.object.isRequired,
     shelves: PropTypes.array.isRequired,
     onChangeShelf: PropTypes.func.isRequired,
-    selected: PropTypes.string.isRequired
+    userBooks: PropTypes.array
 }
 
 export default Book;

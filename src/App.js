@@ -11,11 +11,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    this.getBooks();
-  }
-
-  getBooks = () => {
-    getAll().then(books => {
+    getAll().then((books) => {
       this.setState({
         books
       })
@@ -23,8 +19,21 @@ class BooksApp extends React.Component {
   }
 
   onChangeShelf = (book, shelf) => {
-    update(book, shelf)
-      .then(() => this.getBooks());
+    update(book, shelf).then(() => console.log(`Book has been updated: ${book.id}`));
+
+    let books = this.state.books;
+    let foundbook = books.find((b)=>(b.id === book.id));
+    
+    if (foundbook) {
+      foundbook.shelf = shelf;
+    } else {
+      books.push(book);
+      book.shelf = shelf
+    }
+
+    this.setState({
+      books
+    })
   }
 
   render() {
@@ -47,12 +56,12 @@ class BooksApp extends React.Component {
           </div>
         )} />
 
-        <Route path="/search" render={({ history }) => (
+        <Route path="/search" render={() => (
           <BookSearch
             shelves={shelves}
             userBooks={books}
             onChangeShelf={(book, shelf) => {
-              this.onChangeShelf(book, shelf);
+              this.onChangeShelf(book, shelf)
             }}
           />
         )} />
