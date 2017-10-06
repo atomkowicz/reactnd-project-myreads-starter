@@ -4,11 +4,8 @@ import BookShelf from './BookShelf';
 
 
 const BookList = (props) => {
-  const { books, onChangeShelf } = props;
-  let shelves = [];
-  if (books.length)
-    shelves = [...new Set(books.map(book => book.shelf))]
-
+  const { books, onChangeShelf, shelves } = props;
+  
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -31,7 +28,7 @@ const BookList = (props) => {
   )
 }
 
-BookList.PropTypes = {
+BookList.propTypes = {
   books: PropTypes.array.isRequired,
   shelf: PropTypes.string.isRequired,
   shelves: PropTypes.array.isRequired,

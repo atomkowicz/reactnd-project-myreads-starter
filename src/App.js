@@ -38,6 +38,7 @@ class BooksApp extends React.Component {
           <div>
             <BookList
               books={books}
+              shelves={shelves}
               onChangeShelf={(book, shelf) => {
                 this.onChangeShelf(book, shelf);
               }} />

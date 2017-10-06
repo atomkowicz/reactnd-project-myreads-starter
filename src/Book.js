@@ -46,7 +46,7 @@ const Book = (props) => {
     )
 }
 
-Book.PropTypes = {
+Book.propTypes = {
     book: PropTypes.object.isRequired,
     shelves: PropTypes.array.isRequired,
     onChangeShelf: PropTypes.func.isRequired,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { search } from './BooksAPI';
 import { Link } from 'react-router-dom';
 import Book from './Book';
+import PropTypes from 'prop-types';
 
 class BookSearch extends Component {
 
@@ -62,5 +63,11 @@ class BookSearch extends Component {
         )
     }
 }
+
+BookSearch.propTypes = {
+    shelves: PropTypes.array.isRequired,
+    userBooks: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
+  }
 
 export default BookSearch;
