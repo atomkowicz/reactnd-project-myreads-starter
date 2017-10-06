@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 const Book = (props) => {
 
+    const NO_COVER_LINK = "http://via.placeholder.com/128x193?text=No%20Cover";
+
     const {
         book,
         shelves,
@@ -10,7 +12,7 @@ const Book = (props) => {
         userBooks
       } = props;
 
-    const { smallThumbnail } = book.imageLinks;
+    const smallThumbnail = book.imageLinks ? book.imageLinks.smallThumbnail : NO_COVER_LINK ;
     var selectedOption = "none";
 
     if (book.shelf) {
