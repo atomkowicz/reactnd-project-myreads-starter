@@ -23,9 +23,8 @@ class BooksApp extends React.Component {
   }
 
   onChangeShelf = (book, shelf) => {
-    update(book, shelf).then(
-      this.getBooks()
-    );
+    update(book, shelf)
+      .then(() => this.getBooks());
   }
 
   render() {
