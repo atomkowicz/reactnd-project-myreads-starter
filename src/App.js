@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { getAll, update } from './BooksAPI';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import BookList from './BookList';
 import BookSearch from './BookSearch';
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   state = {
     books: [],
   }
@@ -19,21 +19,21 @@ class BooksApp extends React.Component {
   }
 
   onChangeShelf = (book, shelf) => {
-    update(book, shelf).then(() => console.log(`Book has been updated: ${book.id}`));
-
-    let books = this.state.books;
-    let foundbook = books.find((b)=>(b.id === book.id));
-    
-    if (foundbook) {
-      foundbook.shelf = shelf;
-    } else {
-      books.push(book);
-      book.shelf = shelf
-    }
-
-    this.setState({
-      books
-    })
+    update(book, shelf).then(() => {
+      const books = [...this.state.books]; // non mutating copy of array
+      let foundBook = books.find((b)=>(b.id === book.id));
+      
+      if (foundBook) {
+        foundBook.shelf = shelf;
+      } else {
+        book.shelf = shelf
+        books.push(book);
+      }
+  
+      this.setState({
+        books
+      })
+    });
   }
 
   render() {
